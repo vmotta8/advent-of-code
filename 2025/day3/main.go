@@ -22,7 +22,7 @@ func main() {
 		"234234234234278",
 		"818181911112111",
 	}
-	fmt.Println("sinput len:", len(sample))
+	fmt.Println("sample len:", len(sample))
 
 	result1 := int64(0)
 	result2 := int64(0)

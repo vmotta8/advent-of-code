@@ -27,7 +27,7 @@ func main() {
 		".@@@@@@@@.",
 		"@.@.@@@.@.",
 	}
-	fmt.Println("sinput len:", len(sample))
+	fmt.Println("sample len:", len(sample))
 
 	limit := 3
 	result1 := part1(input, limit)
