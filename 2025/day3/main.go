@@ -13,17 +13,16 @@ func main() {
 		panic(err)
 	}
 
-	sdata := strings.TrimSpace(string(data))
-	input := strings.Split(sdata, "\n")
+	input := strings.Split(strings.TrimSpace(string(data)), "\n")
 	fmt.Println("input len:", len(input))
 
-	sinput := []string{
+	sample := []string{
 		"987654321111111",
 		"811111111111119",
 		"234234234234278",
 		"818181911112111",
 	}
-	fmt.Println("sinput len:", len(sinput))
+	fmt.Println("sinput len:", len(sample))
 
 	result1 := int64(0)
 	result2 := int64(0)

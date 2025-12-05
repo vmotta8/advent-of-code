@@ -13,11 +13,11 @@ func main() {
 		panic(err)
 	}
 
-	input := string(data)
+	input := strings.TrimSpace(string(data))
 	fmt.Println("input:", input)
 
-	sinput := "11-22,95-115,998-1012,1188511880-1188511890,222220-222224,1698522-1698528,446443-446449,38593856-38593862,565653-565659,824824821-824824827,2121212118-2121212124"
-	fmt.Println("sinput:", sinput)
+	sample := "11-22,95-115,998-1012,1188511880-1188511890,222220-222224,1698522-1698528,446443-446449,38593856-38593862,565653-565659,824824821-824824827,2121212118-2121212124"
+	fmt.Println("sinput:", sample)
 
 	nums := inputToInts(input)
 
@@ -32,7 +32,6 @@ func inputToInts(input string) [][]int64 {
 	lines := strings.Split(input, ",")
 	nums := make([][]int64, len(lines))
 	for i, item := range lines {
-		item = strings.TrimSpace(item)
 		parts := strings.Split(item, "-")
 
 		idx, _ := strconv.ParseInt(parts[0], 10, 64)

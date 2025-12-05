@@ -16,7 +16,7 @@ func main() {
 	input := strings.Split(strings.TrimSpace(string(data)), "\n")
 	fmt.Println("input length:", len(input))
 
-	sinput := []string{
+	sample := []string{
 		"L68",
 		"L30",
 		"R48",
@@ -28,7 +28,7 @@ func main() {
 		"R14",
 		"L82",
 	}
-	fmt.Println("sinput length:", len(sinput))
+	fmt.Println("sinput length:", len(sample))
 
 	nums := inputToInts(input)
 	curr := 50
