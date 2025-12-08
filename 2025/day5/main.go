@@ -16,6 +16,7 @@ func main() {
 
 	input := strings.TrimSpace(string(data))
 	fmt.Println("input:", input[:1])
+
 	sample := "3-5\n10-14\n16-20\n12-18\n30-40\n32-35\n50-55\n55-60\n\n1\n5\n8\n11\n17\n32\n33\n56"
 	fmt.Println("sample:", sample[:1])
 

@@ -14,10 +14,11 @@ func main() {
 
 	input := strings.TrimSpace(string(data))
 	fmt.Println("input:", input[:1])
+
 	sample := ".......S.......\n...............\n.......^.......\n...............\n......^.^......\n...............\n.....^.^.^.....\n...............\n....^.^...^....\n...............\n...^.^...^.^...\n...............\n..^...^.....^..\n...............\n.^.^.^.^.^...^.\n..............."
 	fmt.Println("sample:", sample[:1])
 
-	grid := parseInput(sample)
+	grid := parseInput(input)
 
 	result1 := countHits(grid)
 	fmt.Println("Part 1:", result1)
