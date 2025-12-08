@@ -30,10 +30,10 @@ func main() {
 	fmt.Println("sample len:", len(sample))
 
 	limit := 3
-	result1 := part1(input, limit)
-	result2 := part2(input, limit)
-
+	result1 := countIsolated(input, limit)
 	fmt.Println("Part 1:", result1)
+
+	result2 := countRemovedIteratively(input, limit)
 	fmt.Println("Part 2:", result2)
 }
 
@@ -47,13 +47,13 @@ func inputToGrid(input []string) [][]string {
 	return result
 }
 
-func part1(input []string, limit int) int {
+func countIsolated(input []string, limit int) int {
 	grid := inputToGrid(input)
 	result := 0
 	for row := range grid {
 		for col := range grid[row] {
 			if grid[row][col] == "@" {
-				if validateAdjacents(grid, row, col, limit) {
+				if hasFewerAdjacents(grid, row, col, limit) {
 					result++
 				}
 			}
@@ -63,7 +63,7 @@ func part1(input []string, limit int) int {
 	return result
 }
 
-func part2(input []string, limit int) int {
+func countRemovedIteratively(input []string, limit int) int {
 	grid := inputToGrid(input)
 	result := 0
 
@@ -73,7 +73,7 @@ func part2(input []string, limit int) int {
 		for row := range grid {
 			for col := range grid[row] {
 				if grid[row][col] == "@" {
-					if validateAdjacents(grid, row, col, limit) {
+					if hasFewerAdjacents(grid, row, col, limit) {
 						grid[row][col] = "."
 						updated = true
 						result++
@@ -93,7 +93,7 @@ func part2(input []string, limit int) int {
 	return result
 }
 
-func validateAdjacents(grid [][]string, x, y, limit int) bool {
+func hasFewerAdjacents(grid [][]string, x, y, limit int) bool {
 	directions := [][]int{
 		{-1, 0},
 		{1, 0},

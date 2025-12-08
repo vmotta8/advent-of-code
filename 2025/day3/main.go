@@ -26,16 +26,16 @@ func main() {
 
 	result1 := int64(0)
 	result2 := int64(0)
-	for _, val := range input {
-		result1 += part1(val)
-		result2 += part2(val)
+	for _, line := range input {
+		result1 += findTwoLargest(line)
+		result2 += findLargest12Digits(line)
 	}
 
 	fmt.Println("Part 1:", result1)
 	fmt.Println("Part 2:", result2)
 }
 
-func part1(input string) int64 {
+func findTwoLargest(input string) int64 {
 	fidx := 0
 	fval, _ := strconv.ParseInt(string(input[fidx]), 10, 64)
 
@@ -64,7 +64,7 @@ func part1(input string) int64 {
 	return result
 }
 
-func part2(input string) int64 {
+func findLargest12Digits(input string) int64 {
 	nremove := len(input) - 12
 	fidx := 0
 	fval, _ := strconv.ParseInt(string(input[fidx]), 10, 64)

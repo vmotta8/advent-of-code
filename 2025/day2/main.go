@@ -21,10 +21,10 @@ func main() {
 
 	nums := inputToInts(input)
 
-	result1 := calculate(nums, isValid1)
+	result1 := sumInvalid(nums, isHalfRepeating)
 	fmt.Println("Part 1:", result1)
 
-	result2 := calculate(nums, isValid2)
+	result2 := sumInvalid(nums, isPatternRepeating)
 	fmt.Println("Part 2:", result2)
 }
 
@@ -42,7 +42,7 @@ func inputToInts(input string) [][]int64 {
 	return nums
 }
 
-func calculate(nums [][]int64, isValid func(num int64) bool) int64 {
+func sumInvalid(nums [][]int64, isValid func(num int64) bool) int64 {
 	sum := make([]int64, 0)
 	for _, values := range nums {
 		n1, n2 := values[0], values[1]
@@ -63,7 +63,7 @@ func calculate(nums [][]int64, isValid func(num int64) bool) int64 {
 	return result
 }
 
-func isValid1(num int64) bool {
+func isHalfRepeating(num int64) bool {
 	snum := strconv.FormatInt(num, 10)
 	n := len(snum)
 	if n%2 != 0 {
@@ -80,12 +80,12 @@ func isValid1(num int64) bool {
 	return true
 }
 
-func isValid2(num int64) bool {
+func isPatternRepeating(num int64) bool {
 	snum := strconv.FormatInt(num, 10)
 	n := len(snum)
 
 	for step := 1; step <= n/2; step++ {
-		if !validate(snum, step) {
+		if !hasRepeatingChunks(snum, step) {
 			return false
 		}
 	}
@@ -93,7 +93,7 @@ func isValid2(num int64) bool {
 	return true
 }
 
-func validate(snum string, step int) bool {
+func hasRepeatingChunks(snum string, step int) bool {
 	prev := snum[0:step]
 	snum = snum[step:]
 

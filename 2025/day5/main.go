@@ -22,10 +22,10 @@ func main() {
 	ranges, nums := parseInput(input)
 	fmt.Println("ranges:", len(ranges), "nums:", len(nums))
 
-	result1 := part1(ranges, nums)
-	result2 := part2(ranges)
-
+	result1 := countInRange(ranges, nums)
 	fmt.Println("Part 1:", result1)
+
+	result2 := sumRangeSizes(ranges)
 	fmt.Println("Part 2:", result2)
 }
 
@@ -69,7 +69,7 @@ func parseInput(input string) ([][]int64, []int64) {
 	return ranges, nums
 }
 
-func part1(ranges [][]int64, nums []int64) int {
+func countInRange(ranges [][]int64, nums []int64) int {
 	result := 0
 	for _, n := range nums {
 		for _, r := range ranges {
@@ -83,7 +83,7 @@ func part1(ranges [][]int64, nums []int64) int {
 	return result
 }
 
-func part2(ranges [][]int64) int64 {
+func sumRangeSizes(ranges [][]int64) int64 {
 	result := int64(0)
 	for _, r := range ranges {
 		result += r[1] - r[0] + 1

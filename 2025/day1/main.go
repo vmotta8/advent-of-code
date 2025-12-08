@@ -34,10 +34,10 @@ func main() {
 	curr := 50
 	limit := 99
 
-	result1 := part1(nums, curr, limit)
+	result1 := countZeroLandings(nums, curr, limit)
 	fmt.Println("Part 1:", result1)
 
-	result2 := part2(nums, curr, limit)
+	result2 := countZeroCrossings(nums, curr, limit)
 	fmt.Println("Part 2:", result2)
 }
 
@@ -61,7 +61,7 @@ func inputToInts(input []string) []int {
 	return result
 }
 
-func part1(nums []int, curr, limit int) int {
+func countZeroLandings(nums []int, curr, limit int) int {
 	result := 0
 	cycle := limit + 1
 	for _, num := range nums {
@@ -81,7 +81,7 @@ func part1(nums []int, curr, limit int) int {
 	return result
 }
 
-func part2(nums []int, curr, limit int) int {
+func countZeroCrossings(nums []int, curr, limit int) int {
 	result := 0
 	cycle := limit + 1
 	for _, num := range nums {
