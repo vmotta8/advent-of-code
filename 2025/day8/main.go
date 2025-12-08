@@ -26,31 +26,16 @@ func main() {
 	sample := "162,817,812\n57,618,57\n906,360,560\n592,479,940\n352,342,300\n466,668,158\n542,29,236\n431,825,988\n739,650,466\n52,470,668\n216,146,977\n819,987,18\n117,168,530\n805,96,715\n346,949,466\n970,615,88\n941,993,340\n862,61,35\n984,92,344\n425,690,689"
 	fmt.Println("sample:", sample[:1])
 
+	limit := 1000
 	distances, points := parseInput(input)
 
-	result1 := threeLargestCircuits(distances, points, 1000)
+	result1 := threeLargestCircuitsDSU(distances[:limit], points)
 	fmt.Println("Part 1:", result1)
 
-	result2 := lastTwoJunctionBoxesX(distances, points)
+	result2 := lastTwoJunctionBoxesXDSU(distances, points)
 	fmt.Println("Part 2:", result2)
-}
 
-func threeLargestCircuits(distances []Distances, points []string, limit int) int {
-	return threeLargestCircuitsBFS(distances[:limit], points)
-}
-
-func lastTwoJunctionBoxesX(distances []Distances, points []string) int {
-	for limit := 1; limit <= len(distances); limit++ {
-		result := threeLargestCircuitsBFS(distances[:limit], points)
-		if result == len(points) {
-			lastConn := distances[limit-1]
-			ax, _, _ := parsePoint(lastConn.A)
-			bx, _, _ := parsePoint(lastConn.B)
-			return int(ax * bx)
-		}
-	}
-
-	return 0
+	bruteForceSolution(distances, points, limit)
 }
 
 func parseInput(input string) ([]Distances, []string) {
@@ -90,6 +75,24 @@ func parsePoint(s string) (int64, int64, int64) {
 	z, _ := strconv.ParseInt(parts[2], 10, 64)
 
 	return x, y, z
+}
+
+func bruteForceSolution(distances []Distances, points []string, limit int) {
+	result1 := threeLargestCircuitsBFS(distances[:limit], points)
+	fmt.Println("Part BF 1:", result1)
+
+	result2 := 0
+	for limit := 1; limit <= len(distances); limit++ {
+		result2 = threeLargestCircuitsBFS(distances[:limit], points)
+		if result2 == len(points) {
+			lastConn := distances[limit-1]
+			ax, _, _ := parsePoint(lastConn.A)
+			bx, _, _ := parsePoint(lastConn.B)
+			result2 = int(ax * bx)
+			break
+		}
+	}
+	fmt.Println("Part BF 2:", result2)
 }
 
 func threeLargestCircuitsBFS(distances []Distances, points []string) int {
@@ -167,6 +170,33 @@ func threeLargestCircuitsDSU(distances []Distances, points []string) int {
 	}
 
 	return result[0] * result[1] * result[2]
+}
+
+func lastTwoJunctionBoxesXDSU(distances []Distances, points []string) int {
+	parent := make(map[string]string)
+	for _, p := range points {
+		parent[p] = p
+	}
+
+	circuits := len(points)
+
+	for _, dist := range distances {
+		rootA := find(parent, dist.A)
+		rootB := find(parent, dist.B)
+
+		if rootA != rootB {
+			parent[rootA] = rootB
+			circuits--
+
+			if circuits == 1 {
+				ax, _, _ := parsePoint(dist.A)
+				bx, _, _ := parsePoint(dist.B)
+				return int(ax * bx)
+			}
+		}
+	}
+
+	return 0
 }
 
 func find(parent map[string]string, x string) string {
